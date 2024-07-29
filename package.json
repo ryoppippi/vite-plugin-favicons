@@ -1,0 +1,41 @@
+{
+	"name": "vite-plugin-favicons",
+	"type": "module",
+	"version": "0.0.0",
+	"packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276",
+	"author": "ryoppippi",
+	"exports": {
+		".": {
+			"types": "./src/index.d.ts",
+			"import": "./src/index.js"
+		}
+	},
+	"files": [
+		"LICENSE",
+		"README.md",
+		"src"
+	],
+	"scripts": {
+		"lint": "eslint --cache .",
+		"format": "nr lint --fix"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0",
+		"vite": "^5.4.2"
+	},
+	"dependencies": {
+		"consola": "^3.2.3",
+		"favicons": "^7.2.0",
+		"fs-extra": "^11.2.0",
+		"pathe": "^1.1.2",
+		"std-env": "^3.7.0"
+	},
+	"devDependencies": {
+		"@antfu/ni": "^0.22.4",
+		"@ryoppippi/eslint-config": "npm:@jsr/ryoppippi__eslint-config@^0.0.23",
+		"@types/fs-extra": "^11.0.4",
+		"eslint": "^9.9.1",
+		"eslint-plugin-format": "^0.1.2",
+		"vite": "^5.4.2"
+	}
+}
