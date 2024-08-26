@@ -1,11 +1,14 @@
+/* eslint-disable ts/consistent-type-definitions */
+
 import type { FaviconOptions } from 'favicons';
 import type { Plugin } from 'vite';
 import './ambient.js';
 
 /**
  * plugin options
+ * @extends FaviconOptions
  */
-export type Options = {
+export interface Options extends FaviconOptions {
 	/** path of favicon image */
 	imgSrc: string;
 
@@ -14,7 +17,7 @@ export type Options = {
 	 * @default `${assetsDir}/favicons`
 	 */
 	faviconAssetsDest?: string;
-} & FaviconOptions;
+}
 
 /**
  * Favicon plugin for Vite.
