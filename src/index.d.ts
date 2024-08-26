@@ -12,6 +12,11 @@ export interface Options extends FaviconOptions {
 	/** path of favicon image */
 	imgSrc: string;
 
+	/**
+  * parent sub path of favicon assets
+  * @default "/favicon"
+  */
+	path: `/${string}`;
 }
 
 /**
