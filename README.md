@@ -109,3 +109,8 @@ This project is licensed under the [MIT License](LICENSE).
 ## 🙏 Acknowledgements
 
 This plugin is built on top of the excellent [Favicons](https://www.npmjs.com/package/favicons) package.
+
+## 📝 Related Projects
+
+- [unplugin-favicons](https://github.com/anolilab/unplugin-favicons) - works mostly fine, but too complecated and not works in SvelteKit because SvelteKit does not support `transformIndexHtml` hook
+- [vite-plugin-favicons-inject](https://github.com/JohnPremKumar/vite-plugin-favicons-inject) - also not works in SvelteKit
