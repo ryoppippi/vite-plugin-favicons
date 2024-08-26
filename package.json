@@ -20,8 +20,9 @@
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint --cache .",
 		"format": "nr lint --fix",
+		"test": "vitest",
 		"release": "nr release:pre && nlx bumpp && nr release:npm",
-		"release:pre": "nr typecheck && nlx publint",
+		"release:pre": "nr typecheck && nr test run && nlx publint",
 		"release:npm": "pnpm publish"
 	},
 	"peerDependencies": {
@@ -42,6 +43,7 @@
 		"eslint": "^9.9.1",
 		"eslint-plugin-format": "^0.1.2",
 		"eslint-plugin-svelte": "^2.43.0",
-		"vite": "^5.4.2"
+		"vite": "^5.4.2",
+		"vitest": "^2.0.5"
 	}
 }
