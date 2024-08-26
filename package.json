@@ -27,7 +27,10 @@
 	"scripts": {
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint --cache .",
-		"format": "nr lint --fix"
+		"format": "nr lint --fix",
+		"release": "nr release:pre && nlx bumpp && nr release:npm",
+		"release:pre": "nr typecheck && nlx publint",
+		"release:npm": "pnpm publish"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0",
