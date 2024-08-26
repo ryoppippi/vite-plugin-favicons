@@ -26,7 +26,6 @@ function getParentDirPath(p) {
 export function faviconsPlugin(options) {
 	const {
 		imgSrc,
-		faviconAssetsDest: _faviconAssetsDest,
 		...faviconConfig
 	} = options;
 
@@ -38,7 +37,7 @@ export function faviconsPlugin(options) {
 		enforce: `pre`,
 
 		async configResolved(config) {
-			faviconAssetsDest = path.resolve(_faviconAssetsDest ?? path.resolve(config.publicDir, './favicons'));
+			faviconAssetsDest = path.resolve(path.resolve(config.publicDir, faviconsPlugin.path ?? './favicon'));
 			htmlDest = path.resolve(faviconAssetsDest, './favicon.html');
 		},
 

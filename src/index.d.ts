@@ -12,11 +12,6 @@ export interface Options extends FaviconOptions {
 	/** path of favicon image */
 	imgSrc: string;
 
-	/**
-	 * output path of favicon images & manifest
-	 * @default `${assetsDir}/favicons`
-	 */
-	faviconAssetsDest?: string;
 }
 
 /**
