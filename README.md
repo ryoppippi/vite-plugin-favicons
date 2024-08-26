@@ -47,22 +47,25 @@ You can also pass options from the [Favicons](https://www.npmjs.com/package/favi
 2. Use the generated favicons in your HTML:
 
 ```javascript
-import faviconLinks from 'vite-plugin-favicons/output';
+import faviconLinks from 'virtual:favicons';
 
 // You can see the output result
 console.log(faviconLinks);
 ```
 
-### 🖼️ Svelte Component
+### 🖼️ Svelte Example
 
-For Svelte projects, we provide a Svelte component.
+Import the `FaviconsHead` component from the `virtual:favicons` module, and add it inside `<svelte:head>` tag in your Svelte component.
 
 ```svelte
 <script>
-	import FaviconsHead from 'vite-plugin-favicons/svelte';
+	import { FaviconsHead } from 'virtual:favicons';
 </script>
 
-<FaviconsHead />
+<svelte:head>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html FaviconsHead}
+</svelte:head>
 ```
 
 Then use this component to inject the favicon links into the head tag in your Svelte app.
@@ -71,7 +74,7 @@ You can see [SvelteKit Example Project](./example/).
 
 ### 🔄 Usage in Other Frameworks
 
-While the example above is Svelte-specific, you can use this plugin with any framework that works with Vite. The key is to import the favicon links from 'vite-plugin-favicons/output' and insert them into your HTML head section using the appropriate method for your framework.
+While the example above is Svelte-specific, you can use this plugin with any framework that works with Vite. The key is to import the favicon links from `virtual:favicons` and insert them into your HTML head section using the appropriate method for your framework.
 
 ## ⚙️ Configuration
 

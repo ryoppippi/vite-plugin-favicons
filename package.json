@@ -8,14 +8,6 @@
 		".": {
 			"types": "./src/index.d.ts",
 			"import": "./src/index.js"
-		},
-		"./output": {
-			"types": "./src/output.d.ts",
-			"import": "./src/output.js"
-		},
-		"./svelte": {
-			"types": "./src/svelte/index.d.ts",
-			"import": "./src/svelte/index.js"
 		}
 	},
 	"types": "./src/index.d.ts",

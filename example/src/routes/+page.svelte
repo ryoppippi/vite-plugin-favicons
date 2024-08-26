@@ -1,10 +1,12 @@
 <script>
-import FaviconHead from 'vite-plugin-favicons/svelte'
+import FaviconHead from 'virtual:favicons'
 
 const { data } = $props()
 </script>
 
-<FaviconHead/>
+<svelte:head>
+  {@html faviconsHtml}
+</svelte:head>
 
 <h1> Generated Favicon Meta Data </h1>
 <h2> Also check the actual header using DevTools </h2>
