@@ -1,11 +1,11 @@
 <script>
-import FaviconHead from 'virtual:favicons'
+import favicons from 'virtual:favicons'
 
 const { data } = $props()
 </script>
 
 <svelte:head>
-  {@html faviconsHtml}
+  {@html favicons}
 </svelte:head>
 
 <h1> Generated Favicon Meta Data </h1>

@@ -1,4 +1,4 @@
-import favicons from 'vite-plugin-favicons/output'
+import favicons from 'virtual:favicons'
 import { codeToHtml } from 'shiki'
 
 export const load = async ()=>{
