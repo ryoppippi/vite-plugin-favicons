@@ -1,1 +1,1 @@
-# vite-plugin-favicons
+# vite-plugin-favicon
