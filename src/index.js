@@ -37,7 +37,15 @@ export function faviconsPlugin(options) {
 		enforce: `pre`,
 
 		async configResolved(config) {
-			faviconAssetsDest = path.resolve(path.resolve(config.publicDir, faviconsPlugin.path ?? './favicon'));
+			if (!faviconConfig.path.startsWith('/')) {
+				logger.error('Favicon path must start with a forward slash');
+				throw new Error('Favicon path must start with a forward slash');
+			}
+
+			const pathWithoutSlash = faviconConfig.path.slice(1);
+
+			faviconAssetsDest = path.resolve(path.resolve(config.publicDir, pathWithoutSlash));
+
 			htmlDest = path.resolve(faviconAssetsDest, './favicon.html');
 		},
 

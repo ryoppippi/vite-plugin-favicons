@@ -12,7 +12,6 @@ export default defineConfig({
 		faviconsPlugin({
 			/** ===== favicon ===== */
 			imgSrc: relativePath('./static/favicon.png'),
-			faviconAssetsDest: relativePath('./static/favicons'),
 			/** ========================= */
 
 			/* ===== metadata===== */
