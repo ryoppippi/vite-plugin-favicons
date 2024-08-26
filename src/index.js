@@ -6,7 +6,7 @@ import { isProduction } from 'std-env';
 
 import { logger } from './logger.js';
 
-const virtualModuleId = `virtual:favicon`;
+const virtualModuleId = `virtual:favicons`;
 const resolvedVirtualModuleId = `\0${virtualModuleId}`;
 
 /**
@@ -23,14 +23,24 @@ function getParentDirPath(p) {
  * @param {import('./index').Options} options - The plugin options.
  * @returns {Plugin} - The Vite plugin object.
  */
-export function faviconPlugin(options) {
-	const { imgSrc, faviconAssetsDest, ...faviconConfig } = options;
+export function faviconsPlugin(options) {
+	const {
+		imgSrc,
+		faviconAssetsDest: _faviconAssetsDest,
+		...faviconConfig
+	} = options;
 
-	const htmlDest = path.resolve(faviconAssetsDest, './favicon.html');
+	let faviconAssetsDest = '';
+	let htmlDest = '';
 
 	return {
 		name: `favicons`,
 		enforce: `pre`,
+
+		async configResolved(config) {
+			faviconAssetsDest = path.resolve(_faviconAssetsDest ?? path.resolve(config.publicDir, './favicons'));
+			htmlDest = path.resolve(faviconAssetsDest, './favicon.html');
+		},
 
 		/* resolveId hook to resolve the virtual module ID */
 		resolveId(id) {
