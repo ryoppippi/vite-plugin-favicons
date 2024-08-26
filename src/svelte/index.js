@@ -1,3 +1,3 @@
-import { default as Head } from './Head.svelte';
+import Head from './Head.svelte';
 
 export default Head;

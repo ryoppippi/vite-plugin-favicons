@@ -1,7 +1,7 @@
 import { ryoppippi } from '@ryoppippi/eslint-config';
 
 export default ryoppippi({
-	svelte: false,
+	svelte: true,
 	tailwindcss: false,
 	ignores: ['example'],
 	typescript: {
