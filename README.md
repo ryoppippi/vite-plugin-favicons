@@ -1,5 +1,8 @@
 # vite-plugin-favicon 🎨
 
+[![npm version](https://img.shields.io/npm/v/vite-plugin-favicons?color=yellow)](https://npmjs.com/package/vite-plugin-favicons)
+[![npm downloads](https://img.shields.io/npm/dm/vite-plugin-favicons?color=yellow)](https://npmjs.com/package/vite-plugin-favicons)
+
 Generate favicons for your Vite project with ease!
 
 ## 🚀 Features
