@@ -1,13 +1,8 @@
 <script>
-import favicons from 'virtual:favicons'
-import Markdown from 'svelte-exmarkdown';
+  import Markdown from 'svelte-exmarkdown';
 
-const { data } = $props()
+  const { data } = $props()
 </script>
-
-<svelte:head>
-  {@html favicons}
-</svelte:head>
 
 <!-- <h1>vite-plugin-favicon </h1> -->
 <!---->
