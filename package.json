@@ -10,6 +10,7 @@
 			"import": "./src/index.js"
 		}
 	},
+	"types": "./src/index.d.ts",
 	"files": [
 		"LICENSE",
 		"README.md",
