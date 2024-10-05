@@ -44,6 +44,6 @@
 		"eslint-plugin-format": "^0.1.2",
 		"eslint-plugin-svelte": "^2.44.1",
 		"vite": "^5.4.8",
-		"vitest": "^2.1.1"
+		"vitest": "^2.1.2"
 	}
 }
