@@ -26,6 +26,7 @@ function getParentDirPath(p) {
 export function faviconsPlugin(options) {
 	const {
 		imgSrc,
+		cache = !isProduction,
 		...faviconConfig
 	} = options;
 
@@ -80,7 +81,7 @@ export function faviconsPlugin(options) {
 			} -->`;
 
 			/* Skip regeneration if a cache exists */
-			if (fs.existsSync(htmlDest) && !isProduction) {
+			if (fs.existsSync(htmlDest) && cache) {
 				const oldHTML = await fs.readFile(htmlDest, 'utf-8');
 				/* Skip regeneration if the cache key is found at the end of the HTML file */
 				if (oldHTML.endsWith(cacheKey)) {

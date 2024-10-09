@@ -17,6 +17,9 @@ export interface Options extends FaviconOptions {
   * @default "/favicon"
   */
 	path: `/${string}`;
+
+	/** whether to cache the generated favicons (default: false on Production, true on Development) */
+	cache?: boolean;
 }
 
 /**
