@@ -10,7 +10,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
-		"@shikijs/markdown-it": "^1.22.0",
+		"@shikijs/markdown-it": "^1.22.1",
 		"@sveltejs/adapter-auto": "^3.3.0",
 		"@sveltejs/adapter-static": "^3.0.5",
 		"@sveltejs/kit": "^2.7.2",
