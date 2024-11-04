@@ -13,7 +13,7 @@
 		"@shikijs/markdown-it": "^1.22.2",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/adapter-static": "^3.0.6",
-		"@sveltejs/kit": "^2.7.3",
+		"@sveltejs/kit": "^2.7.4",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@types/markdown-it": "^14.1.2",
 		"html-format": "^1.1.7",
