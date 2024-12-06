@@ -79,7 +79,7 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0
       svelte:
-        specifier: ^5.4.0
+        specifier: ^5.5.2
         version: 5.7.0
       svelte-check:
         specifier: ^4.1.0
