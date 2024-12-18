@@ -79,7 +79,7 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0
       svelte:
-        specifier: ^5.13.0
+        specifier: ^5.14.0
         version: 5.14.0
       svelte-check:
         specifier: ^4.1.1
@@ -3072,7 +3072,7 @@ snapshots:
     dependencies:
       '@vitest/spy': 2.1.6
       estree-walker: 3.0.3
-      magic-string: 0.30.14
+      magic-string: 0.30.15
     optionalDependencies:
       vite: 6.0.3(@types/node@22.10.1)(yaml@2.6.1)
 
@@ -3088,7 +3088,7 @@ snapshots:
   '@vitest/snapshot@2.1.6':
     dependencies:
       '@vitest/pretty-format': 2.1.6
-      magic-string: 0.30.14
+      magic-string: 0.30.15
       pathe: 1.1.2
 
   '@vitest/spy@2.1.6':
