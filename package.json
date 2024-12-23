@@ -27,7 +27,7 @@
 	},
 	"peerDependencies": {
 		"typescript": "^5.7.2",
-		"vite": "^6.0.4"
+		"vite": "^6.0.5"
 	},
 	"dependencies": {
 		"consola": "^3.3.0",
@@ -43,7 +43,7 @@
 		"eslint": "^9.17.0",
 		"eslint-plugin-format": "^0.1.3",
 		"eslint-plugin-svelte": "^2.46.1",
-		"vite": "^6.0.4",
+		"vite": "^6.0.5",
 		"vitest": "^2.1.6"
 	}
 }
