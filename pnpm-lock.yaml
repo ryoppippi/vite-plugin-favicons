@@ -55,7 +55,7 @@ importers:
   example:
     devDependencies:
       '@shikijs/markdown-it':
-        specifier: ^1.24.3
+        specifier: ^1.24.4
         version: 1.24.4
       '@sveltejs/adapter-auto':
         specifier: ^3.3.1
