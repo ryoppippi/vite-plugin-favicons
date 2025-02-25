@@ -40,7 +40,7 @@
 		"@antfu/ni": "^23.3.1",
 		"@ryoppippi/eslint-config": "npm:@jsr/ryoppippi__eslint-config@^0.0.23",
 		"@types/fs-extra": "^11.0.4",
-		"eslint": "^9.20.1",
+		"eslint": "^9.21.0",
 		"eslint-plugin-format": "^1.0.1",
 		"eslint-plugin-svelte": "^2.46.1",
 		"vite": "^6.1.1",
