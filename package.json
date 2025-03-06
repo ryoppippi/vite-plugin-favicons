@@ -34,7 +34,7 @@
 		"favicons": "^7.2.0",
 		"fs-extra": "^11.3.0",
 		"pathe": "^2.0.3",
-		"std-env": "^3.8.0"
+		"std-env": "^3.8.1"
 	},
 	"devDependencies": {
 		"@antfu/ni": "^23.3.1",
