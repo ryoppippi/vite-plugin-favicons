@@ -42,7 +42,7 @@
 		"@types/fs-extra": "^11.0.4",
 		"eslint": "^9.21.0",
 		"eslint-plugin-format": "^1.0.1",
-		"eslint-plugin-svelte": "^2.46.1",
+		"eslint-plugin-svelte": "^3.0.2",
 		"vite": "^6.2.0",
 		"vitest": "^3.0.7"
 	}
