@@ -43,7 +43,7 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(eslint@9.21.0)
       eslint-plugin-svelte:
-        specifier: ^3.0.2
+        specifier: ^3.0.3
         version: 3.0.3(eslint@9.21.0)(svelte@5.22.5)
       vite:
         specifier: ^6.2.0
