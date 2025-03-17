@@ -46,7 +46,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(eslint@9.22.0)(svelte@5.23.0)
       vite:
-        specifier: ^6.2.1
+        specifier: ^6.2.2
         version: 6.2.2(@types/node@22.13.10)(yaml@2.7.0)
       vitest:
         specifier: ^3.0.8
@@ -88,7 +88,7 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
       vite:
-        specifier: ^6.2.1
+        specifier: ^6.2.2
         version: 6.2.2(@types/node@22.13.10)(yaml@2.7.0)
       vite-plugin-favicons:
         specifier: workspace:*
