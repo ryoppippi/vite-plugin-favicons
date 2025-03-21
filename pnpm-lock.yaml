@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       consola:
-        specifier: ^3.4.1
+        specifier: ^3.4.2
         version: 3.4.2
       favicons:
         specifier: ^7.2.0
