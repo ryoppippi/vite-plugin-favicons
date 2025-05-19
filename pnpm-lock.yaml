@@ -28,8 +28,8 @@ importers:
         version: 5.8.3
     devDependencies:
       '@antfu/ni':
-        specifier: ^24.3.0
-        version: 24.3.0
+        specifier: ^24.4.0
+        version: 24.4.0
       '@ryoppippi/eslint-config':
         specifier: npm:@jsr/ryoppippi__eslint-config@^0.0.23
         version: '@jsr/ryoppippi__eslint-config@0.0.23(@typescript-eslint/utils@8.32.0(eslint@9.26.0)(typescript@5.8.3))(@vue/compiler-sfc@3.5.13)(eslint-plugin-format@1.0.1(eslint@9.26.0))(eslint-plugin-svelte@3.7.0(eslint@9.26.0)(svelte@5.30.1))(eslint@9.26.0)(svelte@5.30.1)(typescript@5.8.3)(vitest@3.1.3(@types/node@22.15.17)(yaml@2.7.1))'
@@ -149,8 +149,8 @@ packages:
   '@antfu/install-pkg@0.4.1':
     resolution: {integrity: sha512-T7yB5QNG29afhWVkVq7XeIMBa5U/vs9mX69YqayXypPRmYzUmzwnYltplHmPtZ4HPCn+sQKeXW8I47wCbuBOjw==}
 
-  '@antfu/ni@24.3.0':
-    resolution: {integrity: sha512-wBSav4mBxvHEW9RbdSo1SWLQ6MAlT0Dc423weC58yOWqW4OcMvtnNDdDrxOZeJ88fEIyPK93gDUWIelBxzSf8g==}
+  '@antfu/ni@24.4.0':
+    resolution: {integrity: sha512-ZjriRbGyWGSrBE1RY2qBIXyilejMWLDWh2Go2dqFottyiuOze36+BpPch2z2WnGEgEbzTBVPetMmQvt0xt+iww==}
     hasBin: true
 
   '@antfu/utils@0.7.10':
@@ -1019,8 +1019,8 @@ packages:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
 
-  ansis@3.17.0:
-    resolution: {integrity: sha512-0qWUglt9JEqLFr3w1I1pbrChn1grhaiAR2ocX1PP/flRmxgtwTzPFFFnfIlD6aMOLQZgSuCRlidD70lvx8yhzg==}
+  ansis@4.0.0:
+    resolution: {integrity: sha512-P8nrHI1EyW9OfBt1X7hMSwGN2vwRuqHSKJAT1gbLWZRzDa24oHjYwGHvEgHeBepupzk878yS/HBZ0NMPYtbolw==}
     engines: {node: '>=14'}
 
   are-docs-informative@0.0.2:
@@ -2853,9 +2853,9 @@ snapshots:
       package-manager-detector: 0.2.11
       tinyexec: 0.3.2
 
-  '@antfu/ni@24.3.0':
+  '@antfu/ni@24.4.0':
     dependencies:
-      ansis: 3.17.0
+      ansis: 4.0.0
       fzf: 0.5.2
       package-manager-detector: 1.3.0
       tinyexec: 1.0.1
@@ -3672,7 +3672,7 @@ snapshots:
     dependencies:
       color-convert: 2.0.1
 
-  ansis@3.17.0: {}
+  ansis@4.0.0: {}
 
   are-docs-informative@0.0.2: {}
 
