@@ -1,6 +1,6 @@
 import path from 'node:path';
-import { defineConfig } from 'vitest/config';
 import { faviconsPlugin } from 'vite-plugin-favicons';
+import { defineConfig } from 'vitest/config';
 
 function relativePath(...p: string[]) {
 	return path.resolve(__dirname, ...p);

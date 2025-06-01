@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
-import path from 'pathe';
-import fs from 'fs-extra';
 import { favicons } from 'favicons';
+import fs from 'fs-extra';
+import path from 'pathe';
 import { isProduction } from 'std-env';
 
 import { logger } from './logger.js';
