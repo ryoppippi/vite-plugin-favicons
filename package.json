@@ -24,7 +24,7 @@
 		"test": "vitest",
 		"prepack": "dts-buddy",
 		"release": "nr release:pre && nlx bumpp && nr release:npm",
-		"release:pre": "nr typecheck && nr test run && nlx publint",
+		"release:pre": "nr typecheck && nr test run && nr prepack && nlx publint",
 		"release:npm": "pnpm publish"
 	},
 	"peerDependencies": {
