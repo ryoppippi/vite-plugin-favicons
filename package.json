@@ -6,21 +6,23 @@
 	"author": "ryoppippi",
 	"exports": {
 		".": {
-			"types": "./src/index.d.ts",
+			"types": "./types/index.d.ts",
 			"import": "./src/index.js"
 		}
 	},
-	"types": "./src/index.d.ts",
+	"types": "./types/index.d.ts",
 	"files": [
 		"LICENSE",
 		"README.md",
-		"src"
+		"src",
+		"types"
 	],
 	"scripts": {
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint --cache .",
 		"format": "nr lint --fix",
 		"test": "vitest",
+		"prepack": "dts-buddy",
 		"release": "nr release:pre && nlx bumpp && nr release:npm",
 		"release:pre": "nr typecheck && nr test run && nlx publint",
 		"release:npm": "pnpm publish"
