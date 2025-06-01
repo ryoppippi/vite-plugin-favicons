@@ -40,7 +40,7 @@
 	},
 	"devDependencies": {
 		"@antfu/ni": "^25.0.0",
-		"@ryoppippi/eslint-config": "npm:@jsr/ryoppippi__eslint-config@^0.0.23",
+		"@ryoppippi/eslint-config": "^0.3.7",
 		"@types/fs-extra": "^11.0.4",
 		"eslint": "^9.27.0",
 		"eslint-plugin-format": "^1.0.1",
