@@ -3,3 +3,6 @@ packages:
 onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
+engineStrict: true
+useNodeVersion: 22.15.0
+managePackageManagerVersions: true
