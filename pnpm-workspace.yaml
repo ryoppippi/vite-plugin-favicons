@@ -1,8 +1,9 @@
 packages:
   - example
+engineStrict: true
+managePackageManagerVersions: true
 onlyBuiltDependencies:
   - esbuild
+  - sharp
   - unrs-resolver
-engineStrict: true
 useNodeVersion: 22.15.0
-managePackageManagerVersions: true
