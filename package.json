@@ -49,6 +49,6 @@
 		"eslint-plugin-svelte": "^3.9.2",
 		"publint": "^0.3.12",
 		"vite": "^6.3.5",
-		"vitest": "^3.2.3"
+		"vitest": "^3.2.4"
 	}
 }
