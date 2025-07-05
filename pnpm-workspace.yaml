@@ -2,6 +2,9 @@ packages:
   - example
 engineStrict: true
 managePackageManagerVersions: true
+catalogs:
+  build:
+    vite: 'npm:rolldown-vite@latest'
 onlyBuiltDependencies:
   - esbuild
   - sharp

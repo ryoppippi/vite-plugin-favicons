@@ -21,7 +21,7 @@
     "svelte": "^5.34.9",
     "svelte-check": "^4.2.2",
     "typescript": "^5.8.3",
-    "vite": "npm:rolldown-vite@latest",
+    "vite": "catalog:build",
     "vite-plugin-favicons": "workspace:*"
   },
   "type": "module"
