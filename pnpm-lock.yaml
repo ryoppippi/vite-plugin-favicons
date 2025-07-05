@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  build:
+    typescript:
+      specifier: ^5.8.3
+      version: 5.8.3
+
 overrides:
   vite: npm:rolldown-vite@latest
 
@@ -26,9 +32,6 @@ importers:
       std-env:
         specifier: ^3.9.0
         version: 3.9.0
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
       vite:
         specifier: npm:rolldown-vite@latest
         version: rolldown-vite@7.0.4(@types/node@24.0.7)(esbuild@0.25.5)(jiti@2.4.2)(yaml@2.8.0)
@@ -60,6 +63,9 @@ importers:
       publint:
         specifier: ^0.3.12
         version: 0.3.12
+      typescript:
+        specifier: catalog:build
+        version: 5.8.3
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.0.7)(esbuild@0.25.5)(jiti@2.4.2)(yaml@2.8.0)
@@ -97,7 +103,7 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2(picomatch@4.0.2)(svelte@5.34.9)(typescript@5.8.3)
       typescript:
-        specifier: ^5.8.3
+        specifier: catalog:build
         version: 5.8.3
       vite:
         specifier: npm:rolldown-vite@latest
