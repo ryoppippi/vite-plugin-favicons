@@ -2,6 +2,8 @@ packages:
   - example
 engineStrict: true
 managePackageManagerVersions: true
+overrides:
+  vite: 'npm:rolldown-vite@latest'
 catalogs:
   build:
     vite: 'npm:rolldown-vite@latest'
