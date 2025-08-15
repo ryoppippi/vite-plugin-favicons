@@ -41,7 +41,7 @@
 		"@antfu/ni": "^25.0.0",
 		"@ryoppippi/eslint-config": "^0.3.7",
 		"@types/fs-extra": "^11.0.4",
-		"bumpp": "^10.2.0",
+		"bumpp": "^10.2.3",
 		"dts-buddy": "^0.6.2",
 		"eslint": "^9.30.1",
 		"eslint-plugin-format": "^1.0.1",
