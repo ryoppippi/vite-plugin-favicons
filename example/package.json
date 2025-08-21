@@ -18,7 +18,7 @@
     "@types/markdown-it": "^14.1.2",
     "html-format": "^1.1.7",
     "markdown-it": "^14.1.0",
-    "svelte": "^5.34.9",
+    "svelte": "^5.38.2",
     "svelte-check": "^4.2.2",
     "typescript": "catalog:build",
     "vite": "catalog:build",
