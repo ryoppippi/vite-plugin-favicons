@@ -6,7 +6,7 @@ overrides:
   vite: 'npm:rolldown-vite@latest'
 catalogs:
   build:
-    typescript: ^5.8.3
+    typescript: ^5.9.2
     vite: 'npm:rolldown-vite@latest'
 onlyBuiltDependencies:
   - esbuild
