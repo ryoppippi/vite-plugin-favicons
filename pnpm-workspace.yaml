@@ -13,3 +13,5 @@ onlyBuiltDependencies:
   - sharp
   - unrs-resolver
 useNodeVersion: 22.15.0
+allowBuilds:
+  sharp: true

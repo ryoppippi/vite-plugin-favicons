@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto';
-import { favicons } from 'favicons';
 import fs from 'fs-extra';
 import path from 'pathe';
 import { isProduction } from 'std-env';
@@ -8,6 +7,16 @@ import { logger } from './logger.js';
 
 const virtualModuleId = `virtual:favicons`;
 const resolvedVirtualModuleId = `\0${virtualModuleId}`;
+
+async function getFavicons(useBunImage) {
+	if (useBunImage) {
+		const { registerBunImageSharpModule } = await import('./bun-image-sharp.js');
+		registerBunImageSharpModule();
+	}
+
+	const module = await import('favicons');
+	return module.favicons;
+}
 
 /**
  * Get the parent directory path of a given path.
@@ -27,6 +36,7 @@ export function faviconsPlugin(options) {
 	const {
 		imgSrc,
 		cache = !isProduction,
+		useBunImage = false,
 		...faviconConfig
 	} = options;
 
@@ -105,7 +115,8 @@ export function faviconsPlugin(options) {
 			await fs.mkdir(getParentDirPath(htmlDest), { recursive: true });
 
 			/* Generate favicons */
-			const response = await favicons(imgSrc, faviconConfig);
+			const generateFavicons = await getFavicons(useBunImage);
+			const response = await generateFavicons(imgSrc, faviconConfig);
 
 			await Promise.all([
 				/* Write the generated favicon images */

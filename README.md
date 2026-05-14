@@ -81,7 +81,9 @@ While the example above is Svelte-specific, you can use this plugin with any fra
 The plugin accepts the following options:
 
 - `imgSrc` (required): Path to the source image for generating favicons
-- `faviconAssetsDest` (optional): Output path for favicon images and manifest (default: `${assetsDir}/favicons`)
+- `path` (required): Public path for generated favicon assets. It must start with `/`
+- `cache` (optional): Whether to cache generated favicons (default: `false` in production, `true` in development)
+- `useBunImage` (optional): Use `Bun.Image` via `Bun.module` instead of loading `sharp` from `favicons`. This requires running the Vite build with Bun and a Bun version that includes `Bun.Image`
 - Other options from the `Favicons` package
 
 The additional options are based on the `Favicons` library. For a full list of options and their descriptions, please refer to the [Favicons package documentation](https://www.npmjs.com/package/favicons).
