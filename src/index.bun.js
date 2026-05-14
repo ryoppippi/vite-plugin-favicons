@@ -1,7 +1,7 @@
 import { faviconsPlugin as baseFaviconsPlugin } from './index.js';
 
 /**
- * Favicon plugin for Vite using Bun.Image by default.
+ * Favicon plugin for Vite using Bun.Image by default with sharp fallback.
  * @param {import('./index').Options} options - The plugin options.
  * @returns {import('vite').Plugin} - The Vite plugin object.
  */

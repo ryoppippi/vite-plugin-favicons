@@ -1,9 +1,13 @@
 import { Buffer } from 'node:buffer';
+import { createRequire } from 'node:module';
 import { PNG } from 'pngjs';
 
 const TRANSPARENT = { r: 0, g: 0, b: 0, a: 0 };
 const WHITE = { r: 255, g: 255, b: 255, a: 255 };
 const BLACK = { r: 0, g: 0, b: 0, a: 255 };
+const BUN_IMAGE_MAX_PIXELS = 512 * 512;
+const require = createRequire(import.meta.url);
+const realSharp = createRequire(require.resolve('favicons'))('sharp');
 
 const sharp = Object.assign(
 	(input, options) => new BunImageSharpPipeline(input, options),
@@ -49,25 +53,27 @@ class BunImageSharpPipeline {
 	#options;
 	#resize;
 	#overlays = [];
-	#rotate = 0;
+	#rotate;
 	#format;
-	#raw = false;
+	#rawOptions;
 	#colorspace;
+	#ensureAlpha = false;
+	#delegate;
 
-	constructor(input, options = {}) {
+	constructor(input, options) {
 		this.#input = input;
 		this.#options = options;
+
+		if (input?.create) {
+			this.#delegateToSharp();
+		}
 	}
 
 	async metadata() {
 		assertBunImage();
 
-		if (this.#input?.create) {
-			return {
-				width: this.#input.create.width,
-				height: this.#input.create.height,
-				format: 'png',
-			};
+		if (this.#delegate) {
+			return await this.#delegate.metadata();
 		}
 
 		const svgMetadata = readSvgMetadata(this.#input);
@@ -79,49 +85,87 @@ class BunImageSharpPipeline {
 	}
 
 	ensureAlpha() {
+		this.#ensureAlpha = true;
+		if (this.#delegate) {
+			this.#delegate = this.#delegate.ensureAlpha();
+		}
 		return this;
 	}
 
 	resize(options) {
 		this.#resize = options;
+		if (this.#delegate) {
+			this.#delegate = this.#delegate.resize(options);
+		}
 		return this;
 	}
 
 	composite(overlays) {
 		this.#overlays = overlays;
+		if (this.#delegate) {
+			this.#delegate = this.#delegate.composite(overlays);
+		}
+		else {
+			this.#delegateToSharp();
+		}
 		return this;
 	}
 
 	rotate(degrees = 90) {
 		this.#rotate = degrees;
+		if (this.#delegate) {
+			this.#delegate = this.#delegate.rotate(degrees);
+		}
+		else {
+			this.#delegateToSharp();
+		}
 		return this;
 	}
 
 	toColorspace(colorspace) {
 		this.#colorspace = colorspace;
+		if (this.#delegate) {
+			this.#delegate = this.#delegate.toColorspace(colorspace);
+		}
 		return this;
 	}
 
-	raw() {
-		this.#raw = true;
+	raw(options) {
+		this.#rawOptions = options ?? {};
+		if (this.#delegate) {
+			this.#delegate = this.#delegate.raw(this.#rawOptions);
+		}
+		else {
+			this.#delegateToSharp();
+		}
 		return this;
 	}
 
 	png() {
 		this.#format = 'png';
+		if (this.#delegate) {
+			this.#delegate = this.#delegate.png();
+		}
 		return this;
 	}
 
-	async toBuffer(options = {}) {
+	async toBuffer(options) {
+		if (this.#delegate || !this.#canUseBunImage()) {
+			const pipeline = this.#delegateToSharp();
+			return options === undefined
+				? await pipeline.toBuffer()
+				: await pipeline.toBuffer(options);
+		}
+
 		const png = await this.#toPng();
 
-		if (!this.#raw) {
+		if (!this.#rawOptions) {
 			return PNG.sync.write(png);
 		}
 
 		const data = Buffer.from(png.data);
 
-		if (options.resolveWithObject) {
+		if (options?.resolveWithObject) {
 			return {
 				data,
 				info: {
@@ -139,22 +183,7 @@ class BunImageSharpPipeline {
 	}
 
 	async #toPng() {
-		const png = this.#input?.create
-			? createBlankPng(this.#input.create)
-			: await this.#loadPng();
-
-		let output = png;
-
-		for (const overlay of this.#overlays) {
-			const input = PNG.sync.read(Buffer.from(overlay.input));
-			compositePng(output, input, overlay.left ?? 0, overlay.top ?? 0);
-		}
-
-		if (this.#rotate % 360 !== 0) {
-			output = rotatePng(output, this.#rotate);
-		}
-
-		return output;
+		return await this.#loadPng();
 	}
 
 	async #loadPng() {
@@ -189,6 +218,56 @@ class BunImageSharpPipeline {
 		const top = Math.floor((canvas.height - png.height) / 2);
 		compositePng(canvas, png, left, top);
 		return canvas;
+	}
+
+	#delegateToSharp() {
+		if (this.#delegate) {
+			return this.#delegate;
+		}
+
+		let pipeline = this.#options === undefined
+			? realSharp(this.#input)
+			: realSharp(this.#input, this.#options);
+
+		if (this.#ensureAlpha) {
+			pipeline = pipeline.ensureAlpha();
+		}
+
+		if (this.#resize) {
+			pipeline = pipeline.resize(this.#resize);
+		}
+
+		if (this.#overlays.length > 0) {
+			pipeline = pipeline.composite(this.#overlays);
+		}
+
+		if (this.#rotate !== undefined) {
+			pipeline = pipeline.rotate(this.#rotate);
+		}
+
+		if (this.#colorspace) {
+			pipeline = pipeline.toColorspace(this.#colorspace);
+		}
+
+		if (this.#rawOptions) {
+			pipeline = pipeline.raw(this.#rawOptions);
+		}
+
+		if (this.#format === 'png') {
+			pipeline = pipeline.png();
+		}
+
+		this.#delegate = pipeline;
+		return this.#delegate;
+	}
+
+	#canUseBunImage() {
+		if (!this.#resize || this.#overlays.length > 0 || this.#rotate !== undefined || this.#rawOptions) {
+			return false;
+		}
+
+		const { width, height } = this.#resize;
+		return width * height <= BUN_IMAGE_MAX_PIXELS;
 	}
 }
 
@@ -274,35 +353,6 @@ function compositePng(base, overlay, left, top) {
 			base.data[targetOffset + 3] = Math.round(outputAlpha * 255);
 		}
 	}
-}
-
-function rotatePng(png, degrees) {
-	const normalized = ((degrees % 360) + 360) % 360;
-
-	if (normalized === 0) {
-		return png;
-	}
-
-	if (normalized !== 90) {
-		throw new Error(`Bun.Image sharp shim only supports 90 degree rotation`);
-	}
-
-	const rotated = new PNG({
-		width: png.height,
-		height: png.width,
-	});
-
-	for (let y = 0; y < png.height; y += 1) {
-		for (let x = 0; x < png.width; x += 1) {
-			const sourceOffset = (y * png.width + x) * 4;
-			const targetX = png.height - y - 1;
-			const targetY = x;
-			const targetOffset = (targetY * rotated.width + targetX) * 4;
-			png.data.copy(rotated.data, targetOffset, sourceOffset, sourceOffset + 4);
-		}
-	}
-
-	return rotated;
 }
 
 function readSvgMetadata(input) {

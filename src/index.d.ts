@@ -21,7 +21,7 @@ export interface Options extends FaviconOptions {
 	/** whether to cache the generated favicons (default: false on Production, true on Development) */
 	cache?: boolean;
 
-	/** whether to replace favicons' sharp dependency with Bun.Image through Bun.module */
+	/** whether to use Bun.Image through Bun.module with sharp fallback for unsupported image operations */
 	useBunImage?: boolean;
 }
 

@@ -91,7 +91,7 @@ it('registers a Bun.module replacement for sharp', () => {
 	expect(module?.exports.default).toBe(sharp);
 });
 
-it('uses Bun.Image output for resize, composite, and raw buffers', async () => {
+it('uses Bun.Image for resize and sharp fallback for raw buffers', async () => {
 	globalWithBun.Bun = {
 		Image: FakeImage,
 		plugin() {},
