@@ -5,7 +5,7 @@ import { PNG } from 'pngjs';
 const TRANSPARENT = { r: 0, g: 0, b: 0, a: 0 };
 const WHITE = { r: 255, g: 255, b: 255, a: 255 };
 const BLACK = { r: 0, g: 0, b: 0, a: 255 };
-const BUN_IMAGE_MAX_PIXELS = 512 * 512;
+const BUN_IMAGE_MAX_PIXELS = 192 * 192;
 const require = createRequire(import.meta.url);
 const realSharp = createRequire(require.resolve('favicons'))('sharp');
 
