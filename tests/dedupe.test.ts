@@ -38,11 +38,16 @@ function getHook(hook: unknown): Hook {
 
 /**
  * Create a configured plugin instance pointed at the test's temp `publicDir`.
+ *
+ * `cache` defaults to `false` so these tests isolate process-level dedupe from
+ * the on-disk cache: with the disk cache on (its own default depends on
+ * `NODE_ENV`), a second build would be skipped by a cache hit regardless of
+ * whether dedupe works, hiding any regression.
  * @param overrides - extra options merged over the defaults.
  * @returns the resolved Vite plugin.
  */
 async function makePlugin(overrides: Partial<Options> = {}) {
-	const plugin = faviconsPlugin({ imgSrc, path: '/favicons', ...overrides });
+	const plugin = faviconsPlugin({ imgSrc, path: '/favicons', cache: false, ...overrides });
 	await getHook(plugin.configResolved).call(plugin, { publicDir });
 	return plugin;
 }
@@ -81,10 +86,8 @@ it('dedupes favicon generation across plugin instances in the same process', asy
 });
 
 it('regenerates for every build when dedupe is disabled', async () => {
-	/* Also disable the disk cache, which would otherwise short-circuit the
-	   second build and hide whether dedupe was the cause. */
-	const a = await makePlugin({ dedupe: false, cache: false });
-	const b = await makePlugin({ dedupe: false, cache: false });
+	const a = await makePlugin({ dedupe: false });
+	const b = await makePlugin({ dedupe: false });
 
 	await runBuildStart(a);
 	await runBuildStart(b);
