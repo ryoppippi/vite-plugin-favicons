@@ -2,7 +2,7 @@
 	"name": "vite-plugin-favicons",
 	"type": "module",
 	"version": "0.2.0",
-	"packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
+	"packageManager": "pnpm@10.34.1+sha512.b58fbde6dca66a929538021581f648b4570b6ca19b18e7cbd7f2c07a7b24454155388dacdf08f2af3678e88a6d1fe04f9d609df24bf51735a060ea041b374ab7",
 	"author": "ryoppippi",
 	"repository": {
 		"type": "git",
@@ -35,19 +35,19 @@
 	},
 	"dependencies": {
 		"consola": "^3.4.2",
-		"favicons": "^7.2.0",
+		"favicons": "^7.3.0",
 		"pathe": "^2.0.3",
-		"std-env": "^3.9.0"
+		"std-env": "^3.10.0"
 	},
 	"devDependencies": {
 		"@antfu/ni": "^25.0.0",
-		"@ryoppippi/eslint-config": "^0.3.7",
-		"bumpp": "^10.2.0",
-		"dts-buddy": "^0.6.2",
-		"eslint": "^9.30.1",
-		"eslint-plugin-format": "^1.0.1",
-		"eslint-plugin-svelte": "^3.10.1",
-		"publint": "^0.3.12",
+		"@ryoppippi/eslint-config": "^0.4.0",
+		"bumpp": "^10.4.1",
+		"dts-buddy": "^0.8.0",
+		"eslint": "^9.39.4",
+		"eslint-plugin-format": "^1.5.0",
+		"eslint-plugin-svelte": "^3.19.0",
+		"publint": "^0.3.21",
 		"typescript": "catalog:build",
 		"vite": "catalog:build",
 		"vitest": "^4.1.8"
