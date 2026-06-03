@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
+import { existsSync } from 'node:fs';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { favicons } from 'favicons';
-import fs from 'fs-extra';
 import path from 'pathe';
 import { isProduction } from 'std-env';
 
@@ -73,9 +74,9 @@ export function faviconsPlugin(options) {
 		/* load hook to generate the virtual module */
 		async load(id) {
 			if (id === resolvedVirtualModuleId) {
-				if (fs.existsSync(htmlDest)) {
+				if (existsSync(htmlDest)) {
 					logger.info('Favicon html found');
-					const html = await fs.readFile(htmlDest, 'utf-8');
+					const html = await readFile(htmlDest, 'utf-8');
 					return `const html = ${JSON.stringify(html)}; export default html;`;
 				}
 
@@ -90,7 +91,7 @@ export function faviconsPlugin(options) {
 			/* Read the source image as raw bytes. It is hashed as a Buffer rather
 			   than a UTF-8 string because the input is binary, where lossy UTF-8
 			   decoding would weaken the hash. */
-			const img = await fs.readFile(imgSrc);
+			const img = await readFile(imgSrc);
 
 			/* Content hash over the output destination, the favicon config and the
 			   image bytes. It identifies a unique generation: a different config or
@@ -109,8 +110,8 @@ export function faviconsPlugin(options) {
 			 */
 			const generate = async () => {
 				/* Skip regeneration if a cache exists */
-				if (fs.existsSync(htmlDest) && cache) {
-					const oldHTML = await fs.readFile(htmlDest, 'utf-8');
+				if (existsSync(htmlDest) && cache) {
+					const oldHTML = await readFile(htmlDest, 'utf-8');
 					/* Skip regeneration if the cache key is found at the end of the HTML file */
 					if (oldHTML.endsWith(cacheKey)) {
 						logger.info('Cache Hit');
@@ -119,18 +120,18 @@ export function faviconsPlugin(options) {
 				}
 
 				/* Delete existing files */
-				if (fs.existsSync(faviconAssetsDest)) {
-					await fs.rm(faviconAssetsDest, { recursive: true });
+				if (existsSync(faviconAssetsDest)) {
+					await rm(faviconAssetsDest, { recursive: true });
 				}
 
 				/* Delete existing HTML */
-				if (fs.existsSync(htmlDest)) {
-					await fs.rm(htmlDest);
+				if (existsSync(htmlDest)) {
+					await rm(htmlDest);
 				}
 
 				/* Create favicon directory in the static assets */
-				await fs.mkdir(faviconAssetsDest, { recursive: true });
-				await fs.mkdir(getParentDirPath(htmlDest), { recursive: true });
+				await mkdir(faviconAssetsDest, { recursive: true });
+				await mkdir(getParentDirPath(htmlDest), { recursive: true });
 
 				/* Generate favicons */
 				const response = await favicons(imgSrc, faviconConfig);
@@ -138,21 +139,21 @@ export function faviconsPlugin(options) {
 				await Promise.all([
 					/* Write the generated favicon images */
 					...response.images.map(async image =>
-						fs.writeFile(
+						writeFile(
 							path.resolve(faviconAssetsDest, image.name),
 							image.contents,
 						),
 					),
 					/* Write the generated favicon files */
 					...response.files.map(async file =>
-						fs.writeFile(
+						writeFile(
 							path.resolve(faviconAssetsDest, file.name),
 							file.contents,
 						),
 					),
 					/*
 					Write the generated HTML and append the cache key at the end */
-					fs.writeFile(htmlDest, response.html.join('\n') + cacheKey),
+					writeFile(htmlDest, response.html.join('\n') + cacheKey),
 				]);
 
 				logger.info(`Favicon generated at ${faviconAssetsDest}`);
@@ -188,7 +189,7 @@ export function faviconsPlugin(options) {
 				   (e.g. a manual clean during watch mode), in which case we must
 				   regenerate rather than trust the cached result. */
 				await existing;
-				if (fs.existsSync(htmlDest)) {
+				if (existsSync(htmlDest)) {
 					logger.info('Favicon generation already handled in this process');
 					return;
 				}
