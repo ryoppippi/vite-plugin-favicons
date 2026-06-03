@@ -23,9 +23,8 @@
 		"format": "nr lint --fix",
 		"test": "vitest",
 		"prepack": "dts-buddy",
-		"release": "nr release:pre && bumpp && nr release:npm",
-		"release:pre": "nr typecheck && nr test run && nr prepack && publint",
-		"release:npm": "pnpm publish"
+		"release": "nr release:pre && bumpp",
+		"release:pre": "nr typecheck && nr test run && nr prepack && publint"
 	},
 	"peerDependencies": {
 		"vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
