@@ -2,12 +2,10 @@ packages:
   - example
 engineStrict: true
 managePackageManagerVersions: true
-overrides:
-  vite: 'npm:rolldown-vite@latest'
 catalogs:
   build:
     typescript: ^5.8.3
-    vite: 'npm:rolldown-vite@latest'
+    vite: ^8.0.0
 onlyBuiltDependencies:
   - esbuild
   - sharp
