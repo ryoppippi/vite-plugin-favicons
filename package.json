@@ -32,14 +32,12 @@
 	"dependencies": {
 		"consola": "^3.4.2",
 		"favicons": "^7.2.0",
-		"fs-extra": "^11.3.0",
 		"pathe": "^2.0.3",
 		"std-env": "^3.9.0"
 	},
 	"devDependencies": {
 		"@antfu/ni": "^25.0.0",
 		"@ryoppippi/eslint-config": "^0.3.7",
-		"@types/fs-extra": "^11.0.4",
 		"bumpp": "^10.2.0",
 		"dts-buddy": "^0.6.2",
 		"eslint": "^9.30.1",
