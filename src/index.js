@@ -10,6 +10,19 @@ const virtualModuleId = `virtual:favicons`;
 const resolvedVirtualModuleId = `\0${virtualModuleId}`;
 
 /**
+ * Process-wide registry of in-flight favicon generations, keyed by output
+ * destination and content hash.
+ *
+ * It lives on `globalThis` rather than in module scope so that separate plugin
+ * instances within the same Node process share it even if this module ends up
+ * instantiated more than once (e.g. SvelteKit's client and server builds load
+ * the config independently). Storing the `Promise` — not just a boolean — lets
+ * a later instance `await` an ongoing generation instead of starting its own.
+ * @type {Map<string, Promise<void>>}
+ */
+const buildPromises = (globalThis.__vitePluginFaviconsBuildPromises ??= new Map());
+
+/**
  * Get the parent directory path of a given path.
  * @param {string} p - The path to get the parent directory from.
  * @returns {string} - The parent directory path.
@@ -27,6 +40,7 @@ export function faviconsPlugin(options) {
 	const {
 		imgSrc,
 		cache = !isProduction,
+		dedupe = true,
 		...faviconConfig
 	} = options;
 
@@ -73,61 +87,122 @@ export function faviconsPlugin(options) {
 		async buildStart() {
 			logger.info('build start');
 
-			/** Cache key */
-			const cacheKey = `<!-- ${
-				createHash('md5').update(
-					JSON.stringify(options) + await fs.readFile(imgSrc, 'utf-8'),
-				).digest('hex')
-			} -->`;
+			/* Read the source image as raw bytes. It is hashed as a Buffer rather
+			   than a UTF-8 string because the input is binary, where lossy UTF-8
+			   decoding would weaken the hash. */
+			const img = await fs.readFile(imgSrc);
 
-			/* Skip regeneration if a cache exists */
-			if (fs.existsSync(htmlDest) && cache) {
-				const oldHTML = await fs.readFile(htmlDest, 'utf-8');
-				/* Skip regeneration if the cache key is found at the end of the HTML file */
-				if (oldHTML.endsWith(cacheKey)) {
-					logger.info('Cache Hit');
-					return;
+			/* Content hash over the output destination, the favicon config and the
+			   image bytes. It identifies a unique generation: a different config or
+			   output dir must not be deduped against this one. */
+			const hash = createHash('sha256')
+				.update(JSON.stringify({ faviconAssetsDest, faviconConfig }))
+				.update(img)
+				.digest('hex');
+
+			/** Cache key appended to the generated HTML to detect disk cache hits */
+			const cacheKey = `<!-- ${hash} -->`;
+
+			/**
+			 * Generate the favicons once, honouring the on-disk cache.
+			 * @returns {Promise<void>}
+			 */
+			const generate = async () => {
+				/* Skip regeneration if a cache exists */
+				if (fs.existsSync(htmlDest) && cache) {
+					const oldHTML = await fs.readFile(htmlDest, 'utf-8');
+					/* Skip regeneration if the cache key is found at the end of the HTML file */
+					if (oldHTML.endsWith(cacheKey)) {
+						logger.info('Cache Hit');
+						return;
+					}
+				}
+
+				/* Delete existing files */
+				if (fs.existsSync(faviconAssetsDest)) {
+					await fs.rm(faviconAssetsDest, { recursive: true });
+				}
+
+				/* Delete existing HTML */
+				if (fs.existsSync(htmlDest)) {
+					await fs.rm(htmlDest);
+				}
+
+				/* Create favicon directory in the static assets */
+				await fs.mkdir(faviconAssetsDest, { recursive: true });
+				await fs.mkdir(getParentDirPath(htmlDest), { recursive: true });
+
+				/* Generate favicons */
+				const response = await favicons(imgSrc, faviconConfig);
+
+				await Promise.all([
+					/* Write the generated favicon images */
+					...response.images.map(async image =>
+						fs.writeFile(
+							path.resolve(faviconAssetsDest, image.name),
+							image.contents,
+						),
+					),
+					/* Write the generated favicon files */
+					...response.files.map(async file =>
+						fs.writeFile(
+							path.resolve(faviconAssetsDest, file.name),
+							file.contents,
+						),
+					),
+					/*
+					Write the generated HTML and append the cache key at the end */
+					fs.writeFile(htmlDest, response.html.join('\n') + cacheKey),
+				]);
+
+				logger.info(`Favicon generated at ${faviconAssetsDest}`);
+			};
+
+			/* Without dedupe, generate inline every time buildStart runs. */
+			if (!dedupe) {
+				await generate();
+				return;
+			}
+
+			/* Process-level dedupe: if an identical generation is already running
+			   (or finished) in this process, await it instead of regenerating.
+			   This collapses the double generation seen when one `vite build` runs
+			   the plugin for both the client and server builds. */
+			const destPrefix = `${faviconAssetsDest}:`;
+			const processKey = `${destPrefix}${hash}`;
+
+			/* Evict stale entries for this destination whose source content has
+			   changed. The newest generation for a destination supersedes older
+			   ones, so the registry holds at most one promise per destination and
+			   does not grow unbounded across watch-mode rebuilds. */
+			for (const key of buildPromises.keys()) {
+				if (key.startsWith(destPrefix) && key !== processKey) {
+					buildPromises.delete(key);
 				}
 			}
 
-			/* Delete existing files */
-			if (fs.existsSync(faviconAssetsDest)) {
-				await fs.rm(faviconAssetsDest, { recursive: true });
+			const existing = buildPromises.get(processKey);
+			if (existing != null) {
+				/* Wait for the in-flight or finished generation, then make sure its
+				   output still exists on disk — it may have been removed externally
+				   (e.g. a manual clean during watch mode), in which case we must
+				   regenerate rather than trust the cached result. */
+				await existing;
+				if (fs.existsSync(htmlDest)) {
+					logger.info('Favicon generation already handled in this process');
+					return;
+				}
+				buildPromises.delete(processKey);
 			}
 
-			/* Delete existing HTML */
-			if (fs.existsSync(htmlDest)) {
-				await fs.rm(htmlDest);
-			}
-
-			/* Create favicon directory in the static assets */
-			await fs.mkdir(faviconAssetsDest, { recursive: true });
-			await fs.mkdir(getParentDirPath(htmlDest), { recursive: true });
-
-			/* Generate favicons */
-			const response = await favicons(imgSrc, faviconConfig);
-
-			await Promise.all([
-				/* Write the generated favicon images */
-				...response.images.map(async image =>
-					fs.writeFile(
-						path.resolve(faviconAssetsDest, image.name),
-						image.contents,
-					),
-				),
-				/* Write the generated favicon files */
-				...response.files.map(async file =>
-					fs.writeFile(
-						path.resolve(faviconAssetsDest, file.name),
-						file.contents,
-					),
-				),
-				/*
-				Write the generated HTML and append the cache key at the end */
-				fs.writeFile(htmlDest, response.html.join('\n') + cacheKey),
-			]);
-
-			logger.info(`Favicon generated at ${faviconAssetsDest}`);
+			/* Store the promise before awaiting so a concurrent instance can join
+			   the same in-flight generation. */
+			const promise = generate();
+			buildPromises.set(processKey, promise);
+			/* Drop a failed generation from the registry so a later build (e.g. in
+			   watch mode) can retry instead of replaying the cached rejection. */
+			promise.catch(() => buildPromises.delete(processKey));
+			await promise;
 		},
 	};
 }

@@ -82,6 +82,8 @@ The plugin accepts the following options:
 
 - `imgSrc` (required): Path to the source image for generating favicons
 - `faviconAssetsDest` (optional): Output path for favicon images and manifest (default: `${assetsDir}/favicons`)
+- `cache` (optional): Reuse the previously generated favicons from disk across builds (default: `false` in production, `true` in development)
+- `dedupe` (optional): Collapse identical favicon generations within a single Node process into one run. This prevents double generation when one `vite build` runs the plugin more than once, e.g. SvelteKit's client and server builds (default: `true`)
 - Other options from the `Favicons` package
 
 The additional options are based on the `Favicons` library. For a full list of options and their descriptions, please refer to the [Favicons package documentation](https://www.npmjs.com/package/favicons).
