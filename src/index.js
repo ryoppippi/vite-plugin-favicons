@@ -168,12 +168,31 @@ export function faviconsPlugin(options) {
 			   (or finished) in this process, await it instead of regenerating.
 			   This collapses the double generation seen when one `vite build` runs
 			   the plugin for both the client and server builds. */
-			const processKey = `${faviconAssetsDest}:${hash}`;
+			const destPrefix = `${faviconAssetsDest}:`;
+			const processKey = `${destPrefix}${hash}`;
+
+			/* Evict stale entries for this destination whose source content has
+			   changed. The newest generation for a destination supersedes older
+			   ones, so the registry holds at most one promise per destination and
+			   does not grow unbounded across watch-mode rebuilds. */
+			for (const key of buildPromises.keys()) {
+				if (key.startsWith(destPrefix) && key !== processKey) {
+					buildPromises.delete(key);
+				}
+			}
+
 			const existing = buildPromises.get(processKey);
 			if (existing != null) {
-				logger.info('Favicon generation already handled in this process');
+				/* Wait for the in-flight or finished generation, then make sure its
+				   output still exists on disk — it may have been removed externally
+				   (e.g. a manual clean during watch mode), in which case we must
+				   regenerate rather than trust the cached result. */
 				await existing;
-				return;
+				if (fs.existsSync(htmlDest)) {
+					logger.info('Favicon generation already handled in this process');
+					return;
+				}
+				buildPromises.delete(processKey);
 			}
 
 			/* Store the promise before awaiting so a concurrent instance can join
