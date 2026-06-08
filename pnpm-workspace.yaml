@@ -5,7 +5,7 @@ managePackageManagerVersions: true
 catalogs:
   build:
     typescript: ^5.9.3
-    vite: ^8.0.14
+    vite: ^8.0.16
 onlyBuiltDependencies:
   - esbuild
   - sharp
