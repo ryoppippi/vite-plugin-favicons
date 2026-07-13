@@ -37,7 +37,7 @@
 		"consola": "^3.4.2",
 		"favicons": "^7.3.0",
 		"pathe": "^2.0.3",
-		"std-env": "^4.1.0"
+		"std-env": "^4.2.0"
 	},
 	"devDependencies": {
 		"@antfu/ni": "^30.2.0",
@@ -50,6 +50,6 @@
 		"publint": "^0.3.21",
 		"typescript": "catalog:build",
 		"vite": "catalog:build",
-		"vitest": "^4.1.9"
+		"vitest": "^4.1.10"
 	}
 }
