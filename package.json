@@ -35,19 +35,19 @@
 	},
 	"dependencies": {
 		"consola": "^3.4.2",
-		"favicons": "^7.3.0",
+		"favicons": "^7.3.1",
 		"pathe": "^2.0.3",
 		"std-env": "^4.2.0"
 	},
 	"devDependencies": {
-		"@antfu/ni": "^30.2.0",
+		"@antfu/ni": "^30.3.0",
 		"@ryoppippi/eslint-config": "^0.4.0",
 		"bumpp": "^11.1.0",
-		"dts-buddy": "^0.8.2",
+		"dts-buddy": "^0.8.3",
 		"eslint": "^9.39.5",
 		"eslint-plugin-format": "^2.0.1",
-		"eslint-plugin-svelte": "^3.20.0",
-		"publint": "^0.3.21",
+		"eslint-plugin-svelte": "^3.22.0",
+		"publint": "^0.3.22",
 		"typescript": "catalog:build",
 		"vite": "catalog:build",
 		"vitest": "^4.1.10"
