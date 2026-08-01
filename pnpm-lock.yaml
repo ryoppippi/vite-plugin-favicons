@@ -37,8 +37,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(@vue/compiler-sfc@3.5.17)(eslint-plugin-format@2.0.1(eslint@9.39.5(jiti@2.7.0)(supports-color@7.2.0)))(eslint-plugin-svelte@3.22.0(eslint@9.39.5(jiti@2.7.0)(supports-color@7.2.0))(svelte@5.56.8(@typescript-eslint/types@8.60.1)))(eslint@9.39.5(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(svelte-eslint-parser@1.7.1(svelte@5.56.8(@typescript-eslint/types@8.60.1)))(typescript@6.0.3)(vitest@4.1.10(@types/node@24.0.7)(vite@8.1.5(@types/node@24.0.7)(jiti@2.7.0)(yaml@2.9.0)))
       bumpp:
-        specifier: ^11.1.0
-        version: 11.1.0
+        specifier: ^12.1.1
+        version: 12.1.1
       dts-buddy:
         specifier: ^0.8.3
         version: 0.8.3(typescript@6.0.3)
@@ -1076,9 +1076,9 @@ packages:
     resolution: {integrity: sha512-bkXY9WsVpY7CvMhKSR6pZilZu9Ln5WDrKVBUXf2S443etkmEO4V58heTecXcUIsNsi4Rx8JUO4NfX1IcQl4deg==}
     engines: {node: '>=18.20'}
 
-  bumpp@11.1.0:
-    resolution: {integrity: sha512-jdwOGMyX8JIqpQ0N2RMRR87DHZaoJnUtui5lU9LqFfFK5JC0H8qY9uWqXoa+dEWt/K7rOmmsoyiZB8RBM7RPBQ==}
-    engines: {node: '>=20.19.0'}
+  bumpp@12.1.1:
+    resolution: {integrity: sha512-6zniIxMtt+yeEwmyL4s+gB54A1J8HVQPOIeABaFB2ScmG993Q+3+5MYAbJYu/kmZ1ZXS+KzwVb/ff5V4vBXiHA==}
+    engines: {node: ^22.18.0 || ^24.11.0 || >=26.0.0}
     hasBin: true
 
   cac@6.7.14:
@@ -2396,6 +2396,10 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  verkit@0.3.1:
+    resolution: {integrity: sha512-w2Eo8LSIIoW7qxNBzT7/17k+bh8plXo7G3dHjEIDqPlnluhzaxr9JX8F28VSYEtDvc1/a3WBDih6xNUZseebXg==}
+    engines: {node: '>=18.12.0'}
+
   vfile-message@4.0.2:
     resolution: {integrity: sha512-jRDZ1IMLttGj41KcZvlrYAaI3CfqpLpfpf+Mfig13viT6NKvRzWZ+lXz0Y5D60w6uJIBAOGq9mSHf0gktF0duw==}
 
@@ -3441,16 +3445,16 @@ snapshots:
 
   builtin-modules@5.0.0: {}
 
-  bumpp@11.1.0:
+  bumpp@12.1.1:
     dependencies:
       args-tokenizer: 0.3.0
       cac: 7.0.0
       jsonc-parser: 3.3.1
       package-manager-detector: 1.8.0
-      semver: 7.8.5
       tinyexec: 1.2.4
       tinyglobby: 0.2.17
       unconfig: 7.5.0
+      verkit: 0.3.1
       yaml: 2.9.0
 
   cac@6.7.14: {}
@@ -4995,6 +4999,8 @@ snapshots:
       punycode: 2.3.1
 
   util-deprecate@1.0.2: {}
+
+  verkit@0.3.1: {}
 
   vfile-message@4.0.2:
     dependencies:
