@@ -4,7 +4,7 @@ engineStrict: true
 managePackageManagerVersions: true
 catalogs:
   build:
-    typescript: ^6.0.3
+    typescript: ^7.0.2
     vite: ^8.2.2
 onlyBuiltDependencies:
   - esbuild
