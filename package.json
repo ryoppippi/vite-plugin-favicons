@@ -2,7 +2,7 @@
 	"name": "vite-plugin-favicons",
 	"type": "module",
 	"version": "0.2.0",
-	"packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621",
+	"packageManager": "pnpm@11.26.0",
 	"author": "ryoppippi",
 	"repository": {
 		"type": "git",
@@ -42,7 +42,7 @@
 	"devDependencies": {
 		"@antfu/ni": "^30.5.0",
 		"@ryoppippi/eslint-config": "^0.4.0",
-		"bumpp": "^12.2.1",
+		"bumpp": "^12.3.0",
 		"dts-buddy": "^0.8.3",
 		"eslint": "^9.39.5",
 		"eslint-plugin-format": "^2.0.1",
