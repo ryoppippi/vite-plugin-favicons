@@ -12,7 +12,7 @@
   "devDependencies": {
     "@shikijs/markdown-it": "^4.5.0",
     "@sveltejs/adapter-auto": "^8.0.0",
-    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/adapter-static": "^4.0.0",
     "@sveltejs/kit": "^2.70.3",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@types/markdown-it": "^14.2.0",
