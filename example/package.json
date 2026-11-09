@@ -10,7 +10,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@shikijs/markdown-it": "^4.5.0",
+    "@shikijs/markdown-it": "^4.6.0",
     "@sveltejs/adapter-auto": "^8.0.0",
     "@sveltejs/adapter-static": "^4.0.1",
     "@sveltejs/kit": "^3.1.1",
@@ -19,7 +19,7 @@
     "html-format": "^1.1.7",
     "markdown-it": "^15.0.3",
     "svelte": "^5.57.3",
-    "svelte-check": "^4.7.7",
+    "svelte-check": "^4.7.8",
     "typescript": "catalog:build",
     "vite": "catalog:build",
     "vite-plugin-favicons": "workspace:*"

@@ -2,7 +2,7 @@
 	"name": "vite-plugin-favicons",
 	"type": "module",
 	"version": "0.2.0",
-	"packageManager": "pnpm@11.28.9+sha512.35421cea2720eca3f5ad722b67e8ef18f4d3cd4745ed2fcfeb0dc288d4e9437fad3870d91ee6e83f268f0f6f7e0f62723317b19617bb45ee4333172ef51159f8",
+	"packageManager": "pnpm@11.28.11+sha512.740184d10f81f5d5b165be88560ee7ba62406c4134896abc27a580109eec2f47c1e41d91251c944c2cababcb1c22461799ebb72de2ec625af2030b0e36c735a3",
 	"author": "ryoppippi",
 	"repository": {
 		"type": "git",
@@ -46,10 +46,10 @@
 		"dts-buddy": "^0.8.3",
 		"eslint": "^9.39.5",
 		"eslint-plugin-format": "^2.0.1",
-		"eslint-plugin-svelte": "^3.23.1",
+		"eslint-plugin-svelte": "^3.24.0",
 		"publint": "^0.3.25",
 		"typescript": "catalog:build",
 		"vite": "catalog:build",
-		"vitest": "^5.0.5"
+		"vitest": "^5.1.0"
 	}
 }
