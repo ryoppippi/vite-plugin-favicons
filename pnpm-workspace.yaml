@@ -3,7 +3,7 @@ packages:
 engineStrict: true
 catalogs:
   build:
-    typescript: ^6.0.3
+    typescript: ^7.0.2
     vite: ^8.3.6
 allowBuilds:
   esbuild: true
